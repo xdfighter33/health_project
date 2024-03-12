@@ -1,15 +1,24 @@
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Scanner;
 
 public class employee {
+    //Variable Setup
     private String F_name;
     private String L_name;
-    private int dob;
+    private int age; 
+    private int dob_year;
+    private String dob;
     private String Gender;
     private String department;
     private String job;
+    private float weekly_wage;
+    private float yearly_wage;
+    private float tax_income;
+    private float tax_rate = .05f;
     private float hours;
     private float pay;
-    
+    private float avg_rate;
     // DECLARTION 
 
     public employee() {
@@ -17,7 +26,7 @@ public class employee {
     }
 
 
-    public employee(String F_name, String L_name, int dob, String Gender, String department, String job, float hours, float pay) {
+    public employee(String F_name, String L_name, String dob, String Gender, String department, String job, float hours, float pay) {
         this.F_name = F_name;
         this.L_name = L_name;
         this.dob = dob;
@@ -34,14 +43,28 @@ public class employee {
         System.out.println("====================");
         System.out.println("Name:          " + getF_name() + " " + getL_name());
         System.out.println("Date of Birth: " + getDob());
+        System.out.println("AGE: " + get_age());
         System.out.println("Gender:        " + getGender());
         System.out.println("Department:    " + getDepartment());
         System.out.println("Job Title:     " + getJob());
         System.out.println("Weekly Hours:  " + getHours());
         System.out.println("Hourly Wage:   " + getPay());
+        System.out.println("Weekly Pay:   " + get_weekly_wage());
+        System.out.println("Yearly pay:   " + get_yearly_wage());
+        System.out.println("Yearly Wage after taxes: " + get_tax_income());
     }
 
+    public void displayEmployeeAvgRating(int rate1, int rate2, int rate3){
+        System.out.println("Employee Rating Information:");
+        System.out.println("====================");
+        System.out.println("Name:          " + getF_name() + " " + getL_name());
+    
+        int temp = rate1 + rate2 + rate3 / 3;
 
+        avg_rate = temp;
+
+        System.out.println("Average Rating: " + temp);
+    }
 
     // Collect Employee Data
     
@@ -58,9 +81,9 @@ public class employee {
         set_Gender(scanner.nextLine());
 
         System.out.println("Please enter Employees Date of birth ");
-        set_Dob(scanner.nextInt()); 
-
-
+        set_Dob(scanner.nextLine());
+        
+        calculateAge();
         System.out.println("Please enter Employees department");
         set_Department();
 
@@ -90,7 +113,7 @@ public class employee {
         this.L_name = temp;
     }
 
-    public void set_Dob(int temp){
+    public void set_Dob(String temp){
         this.dob = temp;
     }
     
@@ -170,7 +193,7 @@ public class employee {
             }
     
             // Set the department and break out of the loop
-            this.department = temp;
+            this.job = temp;
             break;
         }
         
@@ -190,15 +213,63 @@ public class employee {
     public String getF_name() {
         return F_name;
     }
+    public void calculateAge() {
+        // Extract the year from the date of birth
+        String yearString = dob.substring(dob.length() - 4);
+        int dob_year = Integer.parseInt(yearString);
+        
+        // Print out the extracted year for debugging
+        System.out.println("Extracted year from DOB: " + dob_year);
     
+        // Calculate the age
+        age = 2024 - dob_year;
+    }
+
+    public int set_year() {
+
+        String yearString = dob.substring(dob.length() - 4);
+
+        int dob_year = Integer.parseInt(yearString);
+        return dob_year;
+    }
+
+
+
+    public float get_weekly_wage(){
+        float temp = pay * hours;
+
+        weekly_wage = temp;
+
+        return weekly_wage;
+    }
+
+    public float get_yearly_wage(){
+        float temp = weekly_wage * 52;
+
+        yearly_wage = temp;
+
+        return yearly_wage;
+    }
+
+    public float get_tax_rate(){
+
+
+        return tax_rate;
+    }
+    public float get_tax_income(){
+        tax_income = yearly_wage *tax_rate;
+        return tax_income;
+    }
     public String getL_name() {
         return L_name;
     }
     
-    public int getDob() {
+    public String getDob() {
         return dob;
     }
-    
+    public int get_age(){
+        return age; 
+    }
     public String getGender() {
         return Gender;
     }
@@ -210,12 +281,17 @@ public class employee {
     public String getJob() {
         return job;
     }
-    
+
     public float getHours() {
         return hours;
     }
     
     public float getPay() {
         return pay;
+    }
+
+    public float return_avg_rae(){
+
+        return avg_rate;
     }
 }

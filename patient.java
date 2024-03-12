@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class patient {
     private String F_name;
     private String L_name;
-    private int dob;
+    private String dob;
+    private float age; 
     private String Gender;
     private String Phone_number;
     private int weight;
@@ -18,13 +19,14 @@ public class patient {
     private int staff_rating1;
     private int staff_rating2;
     private int staff_rating3;
+    private int BMI;
     private int patient_rating_1;
     private int patient_rating_2;
     private int patient_rating_3;
     public patient(){
 
     }
-    public patient(String F_name, String L_name, int dob, String Gender, String Phone_number, int weight, int height, float temp, float pulse, float resp_rate, float Blood_pressure, String allergies) {
+    public patient(String F_name, String L_name, String dob, String Gender, String Phone_number, int weight, int height, float temp, float pulse, float resp_rate, float Blood_pressure, String allergies) {
         this.F_name = F_name;
         this.L_name = L_name;
         this.dob = dob;
@@ -47,13 +49,17 @@ public class patient {
         System.out.print("Name: ");
         System.out.print(getF_name() + " " + getL_name());
         System.out.println();
-        System.out.print("Date of birth: ");
+        System.out.print("Date of birth : ");
         System.out.print(getDob());
         System.out.println();
-        System.out.print("Gende ");
+        System.out.print("Age : ");
+    
+        System.out.print(get_age());
+        System.out.println();
+        System.out.print("Gender : ");
         System.out.print(getGender());
         System.out.println();
-        System.out.print("Phone number");
+        System.out.print("Phone number : ");
         System.out.print(getPhone_number());
         System.out.println();
         System.out.print("Height(IN) : " );
@@ -62,19 +68,22 @@ public class patient {
         System.out.print("Weight(LB) : " );
         System.out.print(getWeight());
         System.out.println();
+        System.out.print("BMI : " );
+        System.out.print(get_bmi());
+        System.out.println();
         System.out.print("Temp(FT) : " );
         System.out.print(getTemp());
         System.out.println();
-        System.out.print("Blood Pressure: " );
+        System.out.print("Blood Pressure : " );
         display_BP();
         System.out.println();
-        System.out.print("Pulse: " );
+        System.out.print("Pulse : " );
         System.out.print(getPulse());
         System.out.println();
-        System.out.print("Respitory rate: ");
+        System.out.print("Respitory rate : ");
         System.out.print(getResp_rate());
         System.out.println();
-        System.out.print("Allergies: ");
+        System.out.print("Allergies : ");
         System.out.print(getAllergies());
         System.out.println();
         System.out.println("_________________________________");
@@ -105,7 +114,7 @@ public class patient {
         staff_rating3 = scan.nextInt();
         System.out.print("_________________________________________");
         System.out.println();
-        scan.close();
+  
     }
 
     public void display_pat_rating(){
@@ -147,8 +156,8 @@ public class patient {
 
         System.out.println("Please enter Patients Date of birth ");
         System.out.println("Please put it in xx/xx/xxx format please do not add (/)");
-        setDob(scanner.nextInt()); 
-
+        setDob(scanner.nextLine()); 
+        set_age();
 
 
 
@@ -159,6 +168,7 @@ public class patient {
         System.out.println("Please enter Patients weight in pounds ");
         setWeight(scanner.nextInt());
 
+        setBMI();
 
         System.out.println("Please enter Patients temp in Farhenheit");
         setTemp(scanner.nextInt());
@@ -178,7 +188,6 @@ public class patient {
 
 
 
- 
 
       //  scanner.close();
         
@@ -192,7 +201,8 @@ public class patient {
         this.L_name = L_name;
     }
 
-    public void setDob(int dob) {
+    public void setDob(String dob) {
+
         this.dob = dob;
     }
 
@@ -207,7 +217,13 @@ public class patient {
     public void setWeight(int weight) {
         this.weight = weight;
     }
-
+    public void setBMI() {
+        // Convert height from inches to meters
+        float heightMeters = height * 0.0254f; // 1 inch = 0.0254 meters
+        
+        // Calculate BMI
+        BMI = (int) (weight / (heightMeters * heightMeters)); 
+    }
     public void setHeight(int height) {
         this.height = height;
     }
@@ -219,7 +235,17 @@ public class patient {
     public void setPulse(float pulse) {
         this.pulse = pulse;
     }
-
+    public void set_age() {
+        // Extract the year from the date of birth
+        String yearString = dob.substring(dob.length() - 4);
+        int dob_year = Integer.parseInt(yearString);
+        
+        // Print out the extracted year for debugging
+        System.out.println("Extracted year from DOB: " + dob_year);
+    
+        // Calculate the age
+        age = 2024 - dob_year;
+    }
     public void setResp_rate(float resp_rate) {
         this.resp_rate = resp_rate;
     }
@@ -258,14 +284,18 @@ public class patient {
         return L_name;
     }
 
-    public int getDob() {
+    public String getDob() {
         return dob;
     }
 
     public String getGender() {
         return Gender;
     }
+    public float get_age(){
 
+
+        return age;
+    }
     public String getPhone_number() {
         return Phone_number;
     }
@@ -289,7 +319,9 @@ public class patient {
     public float getResp_rate() {
         return resp_rate;
     }
-
+    public int get_bmi(){
+        return BMI;
+    }
     public float getBlood_pressure() {
         return Blood_pressure;
     }
@@ -297,4 +329,15 @@ public class patient {
     public String getAllergies() {
         return allergies;
     }
+
+    public int getStaffRating1(){
+        return staff_rating1;
+    }
+    public int getStaffRating2(){
+        return staff_rating2;
+    }
+    public int getStaffRating3(){
+        return staff_rating3;
+    }
+
 }
